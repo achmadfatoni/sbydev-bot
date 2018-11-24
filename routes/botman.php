@@ -7,6 +7,10 @@ $botman->hears('/events', function ($bot) {
    $bot->reply('Lagi dibikin gan, tapi entah kapan selesainya. sabar dulu ya!!!');
 });
 
+$botman->on('new_chat_members', function ($payload, $bot) {
+   $bot->reply('Hi ' . $bot->getUser()->getUsername() .', Selamat bergabung di grup SurabayaDev. Kenalan dulu dong???!!!');
+});
+
 $botman->hears('Hi', function ($bot) {
     $bot->reply('Hello!');
 });
