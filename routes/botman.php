@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\BotManController;
+use Illuminate\Support\Facades\Log;
 
 $botman = resolve('botman');
 
@@ -8,9 +9,10 @@ $botman->hears('/events', function ($bot) {
 });
 
 $botman->on('new_chat_members', function ($payload, $bot) {
-    $user = $bot->getUser();
-    $name = $user->getUsername() ? '@'.$user->getUsername() : $user->getFirstName();
-    $bot->reply('Hi ' . $name .', Selamat bergabung di grup SurabayaDev. Kenalan dulu dong???!!!');
+    $users = collect($payload)->map(function ($user) {
+       return !empty($user['username']) ? '@'.$user['username'] : $user['first_name'];
+    })->toArray();
+    $bot->reply('Hi ' . implode(", ", $users) .', Selamat bergabung di grup SurabayaDev. Kenalan dulu dong???!!!');
 });
 
 $botman->hears('Hi', function ($bot) {
