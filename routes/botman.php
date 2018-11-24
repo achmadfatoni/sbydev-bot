@@ -8,7 +8,9 @@ $botman->hears('/events', function ($bot) {
 });
 
 $botman->on('new_chat_members', function ($payload, $bot) {
-   $bot->reply('Hi ' . $bot->getUser()->getUsername() .', Selamat bergabung di grup SurabayaDev. Kenalan dulu dong???!!!');
+    $user = $bot->getUser();
+    $name = $user->getUsername() ? '@'.$user->getUsername() : $user->getFirstName();
+    $bot->reply('Hi ' . $name .', Selamat bergabung di grup SurabayaDev. Kenalan dulu dong???!!!');
 });
 
 $botman->hears('Hi', function ($bot) {
